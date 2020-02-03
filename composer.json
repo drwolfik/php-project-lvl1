@@ -8,5 +8,8 @@
             "email": "drwolfik@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "bin": [
+      "bin/brain-games"
+    ]
 }
