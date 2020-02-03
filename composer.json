@@ -1,0 +1,12 @@
+{
+    "name": "drwolfik/php-project-lvl1",
+    "description": "First projects for PHP developer profession on Hexlet",
+    "type": "project",
+    "authors": [
+        {
+            "name": "drwolfik",
+            "email": "drwolfik@gmail.com"
+        }
+    ],
+    "require": {}
+}
