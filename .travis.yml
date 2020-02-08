@@ -1,1 +1,2 @@
+language: php
 script: make lint
