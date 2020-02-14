@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use function BrainEven\gameEvenSource\greetPlayer;
+use function BrainEven\gameEvenSource\askNumber;
+use function BrainEven\gameEvenSource\isEven;
+
+use function cli\line;
+use function cli\prompt;
+
+$i = 1;					// Переменная-счётчик для цикла
+
+$pl_name = greetPlayer();		// Узнаём имя игрока
+
+while ($i <= 3) {			// Считаем до трёх
+
+    $number = askNumber();		// Генерируем число
+    $choice = prompt('Your answer');	// Запрашиваем ответ игрока
+    $isNumberEven = isEven($number);	// Сохраняем статус числа: чётное или нечётное
+
+    if ($isNumberEven === $choice) {	// Проверяем правильность ответа
+            line("Correct!");
+            $i++;
+    } else {
+            exit("{$choice} is wrong answer ;(. Correct answer was {$isNumberEven}.\nLet's try again, {$pl_name}!\n");
+    }
+}
+line('Congratulations, %s!', $pl_name);	// Игрок победил!
