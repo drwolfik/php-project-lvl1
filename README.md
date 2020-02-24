@@ -7,3 +7,6 @@ All of these tasks were initially taken from Project 1 on Hexlet web-learning po
 
 Games 'brain-even' and 'brain-calc':
 [![asciicast](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s.svg)](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s)
+
+New game in version 0.2.4 - brain-gcd
+[![asciicast](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd.svg)](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd)
