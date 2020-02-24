@@ -11,11 +11,11 @@ if (file_exists($autoloadPath1)) {
 
 use function BrainEven\gameEngine\{greetPlayer, isEven, launchGame};
 use function BrainEven\gameEngine\{askGameQuestions, effectCalculations};
-use function BrainEven\gameEngine\{checkAnswer, showMessage};
+use function BrainEven\gameEngine\{checkAnswer, showMessage, findGCD};
 
 use function cli\line;
 use function cli\prompt;
 
-$gameType = 'brain-calc';
+$gameType = 'brain-gcd';
 
 launchGame($gameType);
