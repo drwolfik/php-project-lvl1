@@ -3,7 +3,7 @@
 
 
 This is a test of basic PHP tools and other necessary instruments for web-developing.
-All of these tasks initially taken from Project 1 on Hexlet web-learning portal.
+All of these tasks were initially taken from Project 1 on Hexlet web-learning portal.
 
 Games 'brain-even' and 'brain-calc':
 [![asciicast](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s.svg)](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s)
