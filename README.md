@@ -10,3 +10,6 @@ Games 'brain-even' and 'brain-calc':
 
 New game in version 0.2.4 - brain-gcd
 [![asciicast](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd.svg)](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd)
+
+New game in version 0.2.4 - brain-progression
+[![asciicast](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke.svg)](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke)
