@@ -20,6 +20,9 @@ function greetPlayer($gameType) // Функция для вывода приве
         case 'brain-gcd':
             line("Find the greatest common divisor of given numbers.\n");
             break;
+        case 'brain-progression':
+            line("What number is missing in the progression?\n");
+            break;
     }
     $name = prompt('May I have your name? ');
     line("Hello, %s!\n", $name);
@@ -28,18 +31,18 @@ function greetPlayer($gameType) // Функция для вывода приве
 
 function launchGame($gameType)
 {
-    $plName = greetPlayer($gameType);
+    $playerName = greetPlayer($gameType);
     for ($i = 0; $i < 3; $i++) {
         $correctAnswer = askGameQuestions($gameType);
-        list ($plAnswer, $isAnswerCorrect) = checkAnswer($gameType, $correctAnswer);
+        list ($playerAnswer, $isAnswerCorrect) = checkAnswer($gameType, $correctAnswer);
         if ($isAnswerCorrect) {
             showMessage('correct');
         } else {
-            showMessage('mistake', $plName, $correctAnswer, $plAnswer);
+            showMessage('mistake', $playerName, $correctAnswer, $playerAnswer);
             break;
         }
     }
-    showMessage('victory', $plName);
+    showMessage('victory', $playerName);
 }
 
 function askGameQuestions($gameType)
@@ -65,7 +68,37 @@ function askGameQuestions($gameType)
             line("Question: %d %d", $rndNumberOne, $rndNumberTwo);
             return findGCD($rndNumberOne, $rndNumberTwo);
             break;
+        case 'brain-progression':
+            return setArithmeticProgression();
+            break;
     }
+}
+
+function setArithmeticProgression()
+{
+    $firstNumberInProgression = rand(0, 10);
+    $increaseRate = rand(1, 10);
+    $hiddentElementPlace = rand(0, 9);
+    $arrayForArithmeticProgression[0] = $firstNumberInProgression;
+
+    for ($i = 0; $i < 9; $i++) {
+        $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i] + $increaseRate;
+    }
+
+    $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddentElementPlace];
+
+    $progressionWithHiddenElement = "";
+
+    foreach ($arrayForArithmeticProgression as $value) {
+        if ($value === $valueOfHiddenElement) {
+            $progressionWithHiddenElement = "{$progressionWithHiddenElement} ..";
+            continue;
+        }
+        $progressionWithHiddenElement = "{$progressionWithHiddenElement} {$value}";
+    }
+    line("Question:%s", $progressionWithHiddenElement);
+
+    return $valueOfHiddenElement;
 }
 
 function findGCD($firstNumber, $secondNumber)
@@ -110,20 +143,24 @@ function checkAnswer($game, $answer)
             $playerAnswer = (int) prompt('Your answer');
             return array ($playerAnswer, $answer === $playerAnswer);
             break;
+        case 'brain-progression':
+            $playerAnswer = (int) prompt('Your answer');
+            return array ($playerAnswer, $answer === $playerAnswer);
+            break;
     }
 }
 
-function showMessage($messageType, $plName = null, $corrAnswer = null, $plAnswer = null)
+function showMessage($messageType, $playerName = null, $corrAnswer = null, $playerAnswer = null)
 {
     switch ($messageType) {
         case 'correct':
             line("Correct!");
             break;
         case 'mistake':
-            exit("{$plAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.\nLet's try again, {$plName}!\n");
+            exit("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.\nLet's try again, {$playerName}!\n");
             break;
         case 'victory':
-            line('Congratulations, %s!', $plName);
+            line('Congratulations, %s!', $playerName);
             break;
     }
 }
