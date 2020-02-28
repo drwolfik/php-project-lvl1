@@ -157,7 +157,8 @@ function showMessage($messageType, $playerName = null, $corrAnswer = null, $play
             line("Correct!");
             break;
         case 'mistake':
-            exit("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.\nLet's try again, {$playerName}!\n");
+            line("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.");
+            exit("Let's try again, {$playerName}!\n");
             break;
         case 'victory':
             line('Congratulations, %s!', $playerName);
