@@ -13,3 +13,6 @@ New game in version 0.2.4 - brain-gcd
 
 New game in version 0.2.4 - brain-progression
 [![asciicast](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke.svg)](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke)
+
+New game in version 0.2.6 - brain-prime
+[![asciicast](https://asciinema.org/a/A4KyftqwtWgre0KEwq9uGjyFS.svg)](https://asciinema.org/a/A4KyftqwtWgre0KEwq9uGjyFS)
