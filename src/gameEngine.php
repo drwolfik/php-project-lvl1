@@ -129,8 +129,12 @@ function checkAnswer($game, $answer)
         case 'brain-calc':
         case 'brain-gcd':
         case 'brain-progression':
-            $playerAnswer = (int) prompt('Your answer');
-            return array ($playerAnswer, $answer === $playerAnswer);
+            $playerAnswer = prompt('Your answer');
+            if (is_numeric($playerAnswer)) {
+                return array ((int) $playerAnswer, $answer === (int) $playerAnswer);
+            } else {
+                return array ($playerAnswer, false);
+            }
             break;
     }
 }
