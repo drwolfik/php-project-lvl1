@@ -53,7 +53,7 @@ function askGameQuestions($gameType)
     switch ($gameType) {
         case 'brain-even':
             $numberForBrainEvenGame = setNumberForBrainEvenGame();
-            return isEven($numberForBrainEvenGame);
+            return isEven($numberForBrainEvenGame) ? 'yes' : 'no';
         break;
         case 'brain-calc':
             list ($numberOne, $operator, $numberTwo) = setDataForBrainCalcGame();
@@ -69,7 +69,7 @@ function askGameQuestions($gameType)
             break;
         case 'brain-prime':
             $numberForBrainPrimeGame = setNumberForBrainPrimeGame();
-            return isPrimeNumber($numberForBrainPrimeGame);
+            return isPrimeNumber($numberForBrainPrimeGame) ? 'yes' : 'no';
             break;
     }
 }
@@ -198,7 +198,7 @@ function setNumberForBrainPrimeGame()
 
 function isEven($setNumber)
 {
-    return ($setNumber % 2 === 0) ? 'yes' : 'no';
+    return $setNumber % 2 === 0;
 }
 
 function isPrimeNumber($number)
