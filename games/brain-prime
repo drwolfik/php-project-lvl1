@@ -22,6 +22,6 @@ use function BrainGames\gameEngine\setNumberForBrainPrimeGame;
 use function cli\line;
 use function cli\prompt;
 
-$gameType = 'brain-progression';
+$gameType = 'brain-prime';
 
 launchGame($gameType);

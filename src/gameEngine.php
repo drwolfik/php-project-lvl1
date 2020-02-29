@@ -1,6 +1,6 @@
 <?php
 
-namespace BrainEven\gameEngine;
+namespace BrainGames\gameEngine;
 
 use function cli\line;
 use function cli\prompt;
@@ -22,6 +22,9 @@ function greetPlayer($gameType) // Функция для вывода приве
             break;
         case 'brain-progression':
             line("What number is missing in the progression?\n");
+            break;
+        case 'brain-prime':
+            line("Answer \"yes\" if given number is prime. Otherwise answer \"no\".\n");
             break;
     }
     $name = prompt('May I have your name? ');
@@ -49,27 +52,24 @@ function askGameQuestions($gameType)
 {
     switch ($gameType) {
         case 'brain-even':
-            $rndNumber = rand(0, 50);
-            line("Question: %d", $rndNumber);
-            return isEven($rndNumber);
+            $numberForBrainEvenGame = setNumberForBrainEvenGame();
+            return isEven($numberForBrainEvenGame);
         break;
         case 'brain-calc':
-            $operatorsArray = array('+', '-', '*');
-            $operatorChoice = array_rand($operatorsArray);
-            $rndOperator = $operatorsArray[$operatorChoice];
-            $rndNumberOne = rand(0, 15);
-            $rndNumberTwo = rand(0, 15);
-            line("Question: %d %s %d", $rndNumberOne, $rndOperator, $rndNumberTwo);
-            return effectCalculations($rndNumberOne, $rndOperator, $rndNumberTwo);
+            list ($numberOne, $operator, $numberTwo) = setDataForBrainCalcGame();
+            return effectCalculations($numberOne, $operator, $numberTwo);
             break;
         case 'brain-gcd':
-            $rndNumberOne = rand(0, 100);
-            $rndNumberTwo = rand(0, 100);
-            line("Question: %d %d", $rndNumberOne, $rndNumberTwo);
-            return findGCD($rndNumberOne, $rndNumberTwo);
+            list ($numberOne, $numberTwo) = setNumbersForBrainGcdGame();
+            return findGCD($numberOne, $numberTwo);
             break;
         case 'brain-progression':
-            return setArithmeticProgression();
+            $hiddenElementOfProgression = setArithmeticProgression();
+            return $hiddenElementOfProgression;
+            break;
+        case 'brain-prime':
+            $numberForBrainPrimeGame = setNumberForBrainPrimeGame();
+            return isPrimeNumber($numberForBrainPrimeGame);
             break;
     }
 }
@@ -78,25 +78,15 @@ function setArithmeticProgression()
 {
     $firstNumberInProgression = rand(0, 10);
     $increaseRate = rand(1, 10);
-    $hiddentElementPlace = rand(0, 9);
+    $hiddenElementPlace = rand(0, 9);
     $arrayForArithmeticProgression[0] = $firstNumberInProgression;
 
     for ($i = 0; $i < 9; $i++) {
         $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i] + $increaseRate;
     }
 
-    $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddentElementPlace];
-
-    $progressionWithHiddenElement = "";
-
-    foreach ($arrayForArithmeticProgression as $value) {
-        if ($value === $valueOfHiddenElement) {
-            $progressionWithHiddenElement = "{$progressionWithHiddenElement} ..";
-            continue;
-        }
-        $progressionWithHiddenElement = "{$progressionWithHiddenElement} {$value}";
-    }
-    line("Question:%s", $progressionWithHiddenElement);
+    $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddenElementPlace];
+    showProgressionWithHiddenElement($arrayForArithmeticProgression, $valueOfHiddenElement);
 
     return $valueOfHiddenElement;
 }
@@ -131,18 +121,13 @@ function effectCalculations($numberOne, $operation, $numberTwo)
 function checkAnswer($game, $answer)
 {
     switch ($game) {
+        case 'brain-prime':
         case 'brain-even':
             $playerAnswer = prompt("Your answer");
             return array($playerAnswer, $answer === $playerAnswer);
             break;
         case 'brain-calc':
-            $playerAnswer = (int) prompt('Your answer');
-            return array ($playerAnswer, $answer === $playerAnswer);
-            break;
         case 'brain-gcd':
-            $playerAnswer = (int) prompt('Your answer');
-            return array ($playerAnswer, $answer === $playerAnswer);
-            break;
         case 'brain-progression':
             $playerAnswer = (int) prompt('Your answer');
             return array ($playerAnswer, $answer === $playerAnswer);
@@ -159,14 +144,68 @@ function showMessage($messageType, $playerName = null, $corrAnswer = null, $play
         case 'mistake':
             line("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.");
             exit("Let's try again, {$playerName}!\n");
-            break;
         case 'victory':
             line('Congratulations, %s!', $playerName);
             break;
     }
 }
 
-function isEven($setNumber)             // Функция получения статуса числа: чётное или нечётное
+function showProgressionWithHiddenElement(array $arrayWithProgression, $elementToHide)
+{
+    $strWithHiddenElement = "";
+
+    foreach ($arrayWithProgression as $value) {
+        if ($value === $elementToHide) {
+            $strWithHiddenElement = "{$strWithHiddenElement} ..";
+            continue;
+        }
+        $strWithHiddenElement = "{$strWithHiddenElement} {$value}";
+    }
+    line("Question:%s", $strWithHiddenElement);
+}
+
+function setNumberForBrainEvenGame()
+{
+    $rndNumber = rand(0, 50);
+    line("Question: %d", $rndNumber);
+    return $rndNumber;
+}
+
+function setDataForBrainCalcGame()
+{
+    $operatorsArray = array('+', '-', '*');
+    $rndOperator = $operatorsArray[rand(0, 2)];
+    $rndNumberOne = rand(0, 15);
+    $rndNumberTwo = rand(0, 15);
+    line("Question: %d %s %d", $rndNumberOne, $rndOperator, $rndNumberTwo);
+    return array ($rndNumberOne, $rndOperator, $rndNumberTwo);
+}
+
+function setNumbersForBrainGcdGame()
+{
+    $rndNumberOne = rand(0, 100);
+    $rndNumberTwo = rand(0, 100);
+    line("Question: %d %d", $rndNumberOne, $rndNumberTwo);
+    return array ($rndNumberOne, $rndNumberTwo);
+}
+
+function setNumberForBrainPrimeGame()
+{
+    $number = rand(1, 1000);
+    line("Question: %d", $number);
+    return $number;
+}
+
+function isEven($setNumber)
 {
     return ($setNumber % 2 === 0) ? 'yes' : 'no';
+}
+
+function isPrimeNumber($number)
+{
+    $divisor = 2;
+    while (($divisor ** 2 <= $number) && ($number % $divisor != 0)) {
+        $divisor += 1;
+    }
+    return $divisor ** 2 > $number;
 }

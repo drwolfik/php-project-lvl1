@@ -9,9 +9,15 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-use function BrainEven\gameEngine\{greetPlayer, isEven, launchGame};
-use function BrainEven\gameEngine\{askGameQuestions, effectCalculations};
-use function BrainEven\gameEngine\{checkAnswer, showMessage, findGCD};
+use function BrainGames\gameEngine\{greetPlayer, isEven, launchGame};
+use function BrainGames\gameEngine\{askGameQuestions, effectCalculations};
+use function BrainGames\gameEngine\{checkAnswer, showMessage, findGCD};
+use function BrainGames\gameEngine\{setArithmeticProgression, isPrimeNumber};
+use function BrainGames\gameEngine\showProgressionWithHiddenElement;
+use function BrainGames\gameEngine\setNumberForBrainEvenGame;
+use function BrainGames\gameEngine\setDataForBrainCalcGame;
+use function BrainGames\gameEngine\setNumbersForBrainGcdGame;
+use function BrainGames\gameEngine\setNumberForBrainPrimeGame;
 
 use function cli\line;
 use function cli\prompt;
