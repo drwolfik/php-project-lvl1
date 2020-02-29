@@ -6,13 +6,13 @@ This is a test of basic PHP tools and other necessary instruments for web-develo
 All of these tasks were initially taken from Project 1 on Hexlet web-learning portal.
 
 Games 'brain-even' and 'brain-calc':
-[![asciicast](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s.svg)](https://asciinema.org/a/4cq7NHVjA85JhMCHnMZiP6R2s)
+[![asciicast](https://asciinema.org/a/trLv0HdkmP77gtOyoMOhhxka6.svg)](https://asciinema.org/a/trLv0HdkmP77gtOyoMOhhxka6)
 
 New game in version 0.2.4 - brain-gcd
-[![asciicast](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd.svg)](https://asciinema.org/a/fsGsZH8Xv7Yn1ca9YzbNkJrBd)
+[![asciicast](https://asciinema.org/a/UgUWIxrs645EmUhJvltZtFFxG.svg)](https://asciinema.org/a/UgUWIxrs645EmUhJvltZtFFxG)
 
 New game in version 0.2.4 - brain-progression
-[![asciicast](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke.svg)](https://asciinema.org/a/TcxCJdV37gLuVqr8vhD4BmNke)
+[![asciicast](https://asciinema.org/a/GaxDpo2VfktWzxG8QKo3LjxeY.svg)](https://asciinema.org/a/GaxDpo2VfktWzxG8QKo3LjxeY)
 
 New game in version 0.2.6 - brain-prime
-[![asciicast](https://asciinema.org/a/A4KyftqwtWgre0KEwq9uGjyFS.svg)](https://asciinema.org/a/A4KyftqwtWgre0KEwq9uGjyFS)
+[![asciicast](https://asciinema.org/a/AnHXF5YqCnrnd8Pq1SlKoZCji.svg)](https://asciinema.org/a/AnHXF5YqCnrnd8Pq1SlKoZCji)
