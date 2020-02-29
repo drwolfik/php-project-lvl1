@@ -16,7 +16,7 @@
       "games/brain-calc",
       "games/brain-gcd",
       "games/brain-progression",
-      "ganes/brain-prime"
+      "games/brain-prime"
     ],
     "scripts": {
 	    "phpcs": "phpcs"
