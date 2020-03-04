@@ -12,18 +12,23 @@
         "wp-cli/php-cli-tools": "^0.11.11"
     },
     "bin": [
-      "games/brain-even",
-      "games/brain-calc",
-      "games/brain-gcd",
-      "games/brain-progression",
-      "games/brain-prime"
+      "bin/brain-even",
+      "bin/brain-calc",
+      "bin/brain-gcd",
+      "bin/brain-progression",
+      "bin/brain-prime"
     ],
     "scripts": {
 	    "phpcs": "phpcs"
     },
     "autoload": {
         "files": [
-            "src/gameEngine.php"
+            "src/gameEngine.php",
+            "games/moduleBrainEven.php",
+            "games/moduleBrainCalc.php",
+            "games/moduleBrainGcd.php",
+            "games/moduleBrainProgression.php",
+            "games/moduleBrainPrime.php"
         ]
     },
     "require-dev": {
