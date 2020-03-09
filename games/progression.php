@@ -11,8 +11,8 @@ function launchBrainProgressionGame()
     $gameInitialMessage = "What number is missing in the progression?\n";
     showInitialMessage($gameInitialMessage);
     $playerName = getPlayerName();
-    greetPlayer($playerName);    
-    
+    greetPlayer($playerName);
+
     for ($i = 0; $i < 3; $i++) {
         $correctAnswer = (string) setArithmeticProgression();
         list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);

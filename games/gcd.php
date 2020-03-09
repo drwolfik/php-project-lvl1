@@ -12,7 +12,7 @@ function launchBrainGcdGame()
     . "of given numbers.\n";
     showInitialMessage($gameInitialMessage);
     $playerName = getPlayerName();
-    greetPlayer($playerName);    
+    greetPlayer($playerName);
     
     for ($i = 0; $i < 3; $i++) {
         list ($numberOne, $numberTwo) = setNumbersForBrainGcdGame();
