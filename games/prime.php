@@ -1,15 +1,18 @@
 <?php
 
-namespace BrainGames\Games\moduleBrainPrime;
+namespace BrainGames\Games\prime;
 
-use function BrainGames\gameEngine\showMessage;
-use function BrainGames\gameEngine\checkAnswer;
-use function BrainGames\gameEngine\greetPlayer;
+use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
+use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
 use function cli\line;
 
 function launchBrainPrimeGame()
 {
-    $playerName = greetPlayer("Answer \"yes\" if given number is prime. Otherwise answer \"no\".\n");
+    $gameInitialMessage = "Answer \"yes\" if given number is prime. "
+    . "Otherwise answer \"no\".\n";
+    showInitialMessage($gameInitialMessage);
+    $playerName = getPlayerName();
+    greetPlayer($playerName);
     
     for ($i = 0; $i < 3; $i++) {
         $numberForBrainPrimeGame = setNumberForBrainPrimeGame();
@@ -28,7 +31,8 @@ function launchBrainPrimeGame()
 
 function setNumberForBrainPrimeGame()
 {
-    $number = rand(1, 1000);
+    $maxNumberLimit = 1000;
+    $number = rand(1, $maxNumberLimit);
     line("Question: %d", $number);
     return $number;
 }

@@ -1,19 +1,22 @@
 <?php
 
-namespace BrainGames\Games\moduleBrainGcd;
+namespace BrainGames\Games\gcd;
 
-use function BrainGames\gameEngine\showMessage;
-use function BrainGames\gameEngine\checkAnswer;
-use function BrainGames\gameEngine\greetPlayer;
+use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
+use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
 use function cli\line;
 
 function launchBrainGcdGame()
 {
-    $playerName = greetPlayer("Find the greatest common divisor of given numbers.\n");
+    $gameInitialMessage = "Find the greatest common divisor "
+    . "of given numbers.\n";
+    showInitialMessage($gameInitialMessage);
+    $playerName = getPlayerName();
+    greetPlayer($playerName);    
     
     for ($i = 0; $i < 3; $i++) {
         list ($numberOne, $numberTwo) = setNumbersForBrainGcdGame();
-        $correctAnswer = findGCD($numberOne, $numberTwo);
+        $correctAnswer = (string) findGCD($numberOne, $numberTwo);
         list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);
         
         if ($isAnswerCorrect) {
@@ -28,8 +31,9 @@ function launchBrainGcdGame()
 
 function setNumbersForBrainGcdGame()
 {
-    $rndNumberOne = rand(0, 100);
-    $rndNumberTwo = rand(0, 100);
+    $maxNumberLimit = 1000;
+    $rndNumberOne = rand(0, $maxNumberLimit);
+    $rndNumberTwo = rand(0, $maxNumberLimit);
     line("Question: %d %d", $rndNumberOne, $rndNumberTwo);
     return array ($rndNumberOne, $rndNumberTwo);
 }
@@ -43,5 +47,5 @@ function findGCD($firstNumber, $secondNumber)
             $secondNumber = $secondNumber - $firstNumber;
         }
     }
-    return (string) $firstNumber;
+    return $firstNumber;
 }

@@ -5,12 +5,20 @@ namespace BrainGames\gameEngine;
 use function cli\line;
 use function cli\prompt;
 
-function greetPlayer($greetMessage)
+function showInitialMessage($gameMessage)
 {
     line('Welcome to the Brain Games!');
-    line($greetMessage);
+    line($gameMessage);
+}
+
+function greetPlayer(string $playerName)
+{
+    line("Hello, %s!\n", $playerName);
+}
+
+function getPlayerName()
+{
     $name = prompt('May I have your name? ');
-    line("Hello, %s!\n", $name);
     return $name;
 }
 

@@ -1,18 +1,20 @@
 <?php
 
-namespace BrainGames\Games\moduleBrainProgression;
+namespace BrainGames\Games\progression;
 
-use function BrainGames\gameEngine\showMessage;
-use function BrainGames\gameEngine\checkAnswer;
-use function BrainGames\gameEngine\greetPlayer;
+use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
+use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
 use function cli\line;
 
 function launchBrainProgressionGame()
 {
-    $playerName = greetPlayer("What number is missing in the progression?\n");
+    $gameInitialMessage = "What number is missing in the progression?\n";
+    showInitialMessage($gameInitialMessage);
+    $playerName = getPlayerName();
+    greetPlayer($playerName);    
     
     for ($i = 0; $i < 3; $i++) {
-        $correctAnswer = setArithmeticProgression();
+        $correctAnswer = (string) setArithmeticProgression();
         list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);
         
         if ($isAnswerCorrect) {
@@ -27,19 +29,21 @@ function launchBrainProgressionGame()
 
 function setArithmeticProgression()
 {
-    $firstNumberInProgression = rand(0, 10);
-    $increaseRate = rand(1, 10);
-    $hiddenElementPlace = rand(0, 9);
+    $progressionSize = 10;
+    $maxIncreaseRate = 10;
+    $firstNumberInProgression = rand(0, $progressionSize);
+    $increaseRate = rand(1, $maxIncreaseRate);
+    $hiddenElementPlace = rand(0, $progressionSize - 1);
     $arrayForArithmeticProgression[0] = $firstNumberInProgression;
 
-    for ($i = 0; $i < 9; $i++) {
+    for ($i = 0; $i < $progressionSize - 1; $i++) {
         $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i] + $increaseRate;
     }
 
     $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddenElementPlace];
     showProgressionWithHiddenElement($arrayForArithmeticProgression, $valueOfHiddenElement);
 
-    return (string) $valueOfHiddenElement;
+    return $valueOfHiddenElement;
 }
 
 function showProgressionWithHiddenElement(array $arrayWithProgression, $elementToHide)

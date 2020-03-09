@@ -19,16 +19,16 @@
       "bin/brain-prime"
     ],
     "scripts": {
-	    "phpcs": "phpcs"
+        "phpcs": "phpcs"
     },
     "autoload": {
         "files": [
             "src/gameEngine.php",
-            "games/moduleBrainEven.php",
-            "games/moduleBrainCalc.php",
-            "games/moduleBrainGcd.php",
-            "games/moduleBrainProgression.php",
-            "games/moduleBrainPrime.php"
+            "games/even.php",
+            "games/calc.php",
+            "games/gcd.php",
+            "games/progression.php",
+            "games/prime.php"
         ]
     },
     "require-dev": {

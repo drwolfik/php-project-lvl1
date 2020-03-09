@@ -1,13 +1,18 @@
 <?php
 
-namespace BrainGames\Games\moduleBrainEven;
+namespace BrainGames\Games\even;
 
-use function BrainGames\gameEngine\{greetPlayer, checkAnswer, showMessage};
+use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
+use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
 use function cli\line;
 
 function launchBrainEvenGame()
 {
-    $playerName = greetPlayer("Answer \"yes\" if the number is even, otherwise answer \"no\".\n");
+    $gameInitialMessage = "Answer \"yes\" if the number is even, "
+    . "otherwise answer \"no\".\n";
+    showInitialMessage($gameInitialMessage);
+    $playerName = getPlayerName();
+    greetPlayer($playerName);
     
     for ($i = 0; $i < 3; $i++) {
         $numberForBrainEvenGame = setNumberForBrainEvenGame();
@@ -23,10 +28,10 @@ function launchBrainEvenGame()
     showMessage('victory', $playerName);
 }
 
-
 function setNumberForBrainEvenGame()
 {
-    $rndNumber = rand(0, 50);
+    $maxNumberLimit = 50;
+    $rndNumber = rand(0, $maxNumberLimit);
     line("Question: %d", $rndNumber);
     return $rndNumber;
 }
