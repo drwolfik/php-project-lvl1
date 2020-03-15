@@ -2,31 +2,22 @@
 
 namespace BrainGames\Games\gcd;
 
-use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
-use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
+use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
 use function cli\line;
 
 function launchBrainGcdGame()
 {
     $gameInitialMessage = "Find the greatest common divisor "
     . "of given numbers.\n";
-    showInitialMessage($gameInitialMessage);
-    $playerName = getPlayerName();
-    greetPlayer($playerName);
+    $roundLimit = getRoundLimiter();
     
-    for ($i = 0; $i < 3; $i++) {
+    for ($i = 0; $i < $roundLimit; $i++) {
         list ($numberOne, $numberTwo) = setNumbersForBrainGcdGame();
-        $correctAnswer = (string) findGCD($numberOne, $numberTwo);
-        list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);
         
-        if ($isAnswerCorrect) {
-            showMessage('correct');
-        } else {
-            showMessage('mistake', $playerName, $correctAnswer, $playerAnswer);
-            break;
-        }
+        $questions[$i] = "{$numberOne} {$numberTwo}";
+        $correctAnswers[$i] = (string) findGCD($numberOne, $numberTwo);
     }
-    showMessage('victory', $playerName);
+    launchGame($gameInitialMessage, $questions, $correctAnswers);
 }
 
 function setNumbersForBrainGcdGame()
@@ -34,7 +25,6 @@ function setNumbersForBrainGcdGame()
     $maxNumberLimit = 1000;
     $rndNumberOne = rand(0, $maxNumberLimit);
     $rndNumberTwo = rand(0, $maxNumberLimit);
-    line("Question: %d %d", $rndNumberOne, $rndNumberTwo);
     return array ($rndNumberOne, $rndNumberTwo);
 }
 

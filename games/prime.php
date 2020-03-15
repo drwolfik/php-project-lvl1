@@ -2,38 +2,29 @@
 
 namespace BrainGames\Games\prime;
 
-use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
-use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
+use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
 use function cli\line;
 
 function launchBrainPrimeGame()
 {
     $gameInitialMessage = "Answer \"yes\" if given number is prime. "
     . "Otherwise answer \"no\".\n";
-    showInitialMessage($gameInitialMessage);
-    $playerName = getPlayerName();
-    greetPlayer($playerName);
+    $roundLimit = getRoundLimiter();
     
-    for ($i = 0; $i < 3; $i++) {
+    for ($i = 0; $i < $roundLimit; $i++) {
         $numberForBrainPrimeGame = setNumberForBrainPrimeGame();
         $correctAnswer = isPrimeNumber($numberForBrainPrimeGame) ? 'yes' : 'no';
-        list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);
-        
-        if ($isAnswerCorrect) {
-            showMessage('correct');
-        } else {
-            showMessage('mistake', $playerName, $correctAnswer, $playerAnswer);
-            break;
-        }
+
+        $questions[$i] = (string) $numberForBrainPrimeGame;
+        $correctAnswers[$i] = $correctAnswer;
     }
-    showMessage('victory', $playerName);
+    launchGame($gameInitialMessage, $questions, $correctAnswers);
 }
 
 function setNumberForBrainPrimeGame()
 {
     $maxNumberLimit = 1000;
     $number = rand(1, $maxNumberLimit);
-    line("Question: %d", $number);
     return $number;
 }
 

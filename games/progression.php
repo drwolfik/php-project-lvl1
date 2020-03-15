@@ -2,29 +2,21 @@
 
 namespace BrainGames\Games\progression;
 
-use function BrainGames\gameEngine\{showMessage, checkAnswer, getPlayerName};
-use function BrainGames\gameEngine\{showInitialMessage, greetPlayer};
+use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
 use function cli\line;
 
 function launchBrainProgressionGame()
 {
     $gameInitialMessage = "What number is missing in the progression?\n";
-    showInitialMessage($gameInitialMessage);
-    $playerName = getPlayerName();
-    greetPlayer($playerName);
+    $roundLimit = getRoundLimiter();
 
-    for ($i = 0; $i < 3; $i++) {
-        $correctAnswer = (string) setArithmeticProgression();
-        list ($playerAnswer, $isAnswerCorrect) = checkAnswer($correctAnswer);
+    for ($i = 0; $i < $roundLimit; $i++) {
+        list ($arrProgression, $correctAnswer) = setArithmeticProgression();
         
-        if ($isAnswerCorrect) {
-            showMessage('correct');
-        } else {
-            showMessage('mistake', $playerName, $correctAnswer, $playerAnswer);
-            break;
-        }
+        $questions[$i] = getStrWithHidElement($arrProgression, $correctAnswer);
+        $correctAnswers[$i] = (string) $correctAnswer;
     }
-    showMessage('victory', $playerName);
+    launchGame($gameInitialMessage, $questions, $correctAnswers);
 }
 
 function setArithmeticProgression()
@@ -37,16 +29,16 @@ function setArithmeticProgression()
     $arrayForArithmeticProgression[0] = $firstNumberInProgression;
 
     for ($i = 0; $i < $progressionSize - 1; $i++) {
-        $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i] + $increaseRate;
+        $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i]
+        + $increaseRate;
     }
 
     $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddenElementPlace];
-    showProgressionWithHiddenElement($arrayForArithmeticProgression, $valueOfHiddenElement);
 
-    return $valueOfHiddenElement;
+    return array ($arrayForArithmeticProgression, $valueOfHiddenElement);
 }
 
-function showProgressionWithHiddenElement(array $arrayWithProgression, $elementToHide)
+function getStrWithHidElement(array $arrayWithProgression, $elementToHide)
 {
     $strWithHiddenElement = "";
 
@@ -57,5 +49,5 @@ function showProgressionWithHiddenElement(array $arrayWithProgression, $elementT
         }
         $strWithHiddenElement = "{$strWithHiddenElement} {$value}";
     }
-    line("Question:%s", $strWithHiddenElement);
+    return $strWithHiddenElement;
 }
