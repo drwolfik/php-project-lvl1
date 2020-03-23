@@ -2,25 +2,27 @@
 
 namespace BrainGames\Games\gcd;
 
-use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
-use function cli\line;
+use function BrainGames\gameEngine\launchGame;
+
+use const BrainGames\gameEngine\ROUND_LIMIT;
 
 function launchBrainGcdGame()
 {
     $gameInitialMessage = "Find the greatest common divisor "
     . "of given numbers.\n";
-    $roundLimit = getRoundLimiter();
     
-    for ($i = 0; $i < $roundLimit; $i++) {
-        list ($numberOne, $numberTwo) = setNumbersForBrainGcdGame();
-        
-        $questions[$i] = "{$numberOne} {$numberTwo}";
-        $correctAnswers[$i] = (string) findGCD($numberOne, $numberTwo);
+    for ($i = 0; $i < ROUND_LIMIT; $i++) {
+        list ($numberOne, $numberTwo) = getNumbersForBrainGcdGame();
+        $question = "{$numberOne} {$numberTwo}";
+        $correctAnswer = (string) findGCD($numberOne, $numberTwo);
+
+        $gameData[$i][0] = $question;
+        $gameData[$i][1] = $correctAnswer;
     }
-    launchGame($gameInitialMessage, $questions, $correctAnswers);
+    launchGame($gameInitialMessage, $gameData);
 }
 
-function setNumbersForBrainGcdGame()
+function getNumbersForBrainGcdGame()
 {
     $maxNumberLimit = 1000;
     $rndNumberOne = rand(0, $maxNumberLimit);

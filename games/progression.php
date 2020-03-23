@@ -2,48 +2,48 @@
 
 namespace BrainGames\Games\progression;
 
-use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
-use function cli\line;
+use function BrainGames\gameEngine\launchGame;
+
+use const BrainGames\gameEngine\ROUND_LIMIT;
 
 function launchBrainProgressionGame()
 {
     $gameInitialMessage = "What number is missing in the progression?\n";
-    $roundLimit = getRoundLimiter();
 
-    for ($i = 0; $i < $roundLimit; $i++) {
-        list ($arrProgression, $correctAnswer) = setArithmeticProgression();
+    for ($i = 0; $i < ROUND_LIMIT; $i++) {
+        $progression = getArithmeticProgression();
+        $hidElementPlace = rand(0, count($progression) - 1);
+        $correctAnswer = (string) $progression[$hidElementPlace];
+        $question = getStrWithHidElement($progression, $hidElementPlace);
         
-        $questions[$i] = getStrWithHidElement($arrProgression, $correctAnswer);
-        $correctAnswers[$i] = (string) $correctAnswer;
+        $gameData[$i][0] = $question;
+        $gameData[$i][1] = $correctAnswer;
     }
-    launchGame($gameInitialMessage, $questions, $correctAnswers);
+    launchGame($gameInitialMessage, $gameData);
 }
 
-function setArithmeticProgression()
+function getArithmeticProgression()
 {
     $progressionSize = 10;
     $maxIncreaseRate = 10;
     $firstNumberInProgression = rand(0, $progressionSize);
     $increaseRate = rand(1, $maxIncreaseRate);
-    $hiddenElementPlace = rand(0, $progressionSize - 1);
-    $arrayForArithmeticProgression[0] = $firstNumberInProgression;
+    $arithmeticProgression[0] = $firstNumberInProgression;
 
     for ($i = 0; $i < $progressionSize - 1; $i++) {
-        $arrayForArithmeticProgression[] = $arrayForArithmeticProgression[$i]
+        $arithmeticProgression[] = $arithmeticProgression[$i]
         + $increaseRate;
     }
 
-    $valueOfHiddenElement = $arrayForArithmeticProgression[$hiddenElementPlace];
-
-    return array ($arrayForArithmeticProgression, $valueOfHiddenElement);
+    return $arithmeticProgression;
 }
 
-function getStrWithHidElement(array $arrayWithProgression, $elementToHide)
+function getStrWithHidElement(array $progression, $hidElementPlace)
 {
     $strWithHiddenElement = "";
 
-    foreach ($arrayWithProgression as $value) {
-        if ($value === $elementToHide) {
+    foreach ($progression as $key => $value) {
+        if ($key === $hidElementPlace) {
             $strWithHiddenElement = "{$strWithHiddenElement} ..";
             continue;
         }

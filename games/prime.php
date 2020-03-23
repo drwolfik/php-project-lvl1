@@ -2,26 +2,27 @@
 
 namespace BrainGames\Games\prime;
 
-use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
-use function cli\line;
+use function BrainGames\gameEngine\launchGame;
+
+use const BrainGames\gameEngine\ROUND_LIMIT;
 
 function launchBrainPrimeGame()
 {
     $gameInitialMessage = "Answer \"yes\" if given number is prime. "
     . "Otherwise answer \"no\".\n";
-    $roundLimit = getRoundLimiter();
     
-    for ($i = 0; $i < $roundLimit; $i++) {
-        $numberForBrainPrimeGame = setNumberForBrainPrimeGame();
+    for ($i = 0; $i < ROUND_LIMIT; $i++) {
+        $numberForBrainPrimeGame = getNumberForBrainPrimeGame();
+        $question = (string) $numberForBrainPrimeGame;
         $correctAnswer = isPrimeNumber($numberForBrainPrimeGame) ? 'yes' : 'no';
-
-        $questions[$i] = (string) $numberForBrainPrimeGame;
-        $correctAnswers[$i] = $correctAnswer;
+                
+        $gameData[$i][0] = $question;
+        $gameData[$i][1] = $correctAnswer;
     }
-    launchGame($gameInitialMessage, $questions, $correctAnswers);
+    launchGame($gameInitialMessage, $gameData);
 }
 
-function setNumberForBrainPrimeGame()
+function getNumberForBrainPrimeGame()
 {
     $maxNumberLimit = 1000;
     $number = rand(1, $maxNumberLimit);

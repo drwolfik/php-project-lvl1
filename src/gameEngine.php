@@ -5,21 +5,22 @@ namespace BrainGames\gameEngine;
 use function cli\line;
 use function cli\prompt;
 
-function launchGame($initialMessage, $questions, $correctAnswers)
+const ROUND_LIMIT = 3;
+
+function launchGame($initialMessage, $gameData)
 {
-    $numberOfRounds = getRoundLimiter();
     showInitialMessage($initialMessage);
     $playerName = getPlayerName();
     greetPlayer($playerName);
     
-    for ($i = 0; $i < $numberOfRounds; $i++) {
-            line("Question: %s", $questions[$i]);
+    for ($i = 0; $i < ROUND_LIMIT; $i++) {
+            line("Question: %s", $gameData[$i][0]);
             $playerAnswer = (string) prompt("Your answer");
 
-        if ($playerAnswer === $correctAnswers[$i]) {
+        if ($playerAnswer === $gameData[$i][1]) {
             showMessage('correct');
         } else {
-            showMessage('mistake', $playerName, $correctAnswers[$i], $playerAnswer);
+            showMessage('mistake', $playerName, $gameData[$i][1], $playerAnswer);
             break;
         }
     }
@@ -56,10 +57,4 @@ function showMessage($messageType, $playerName = null, $corrAnswer = null, $play
             line('Congratulations, %s!', $playerName);
             break;
     }
-}
-
-function getRoundLimiter()
-{
-    $roundLimit = 3;
-    return $roundLimit;
 }

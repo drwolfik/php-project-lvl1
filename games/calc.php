@@ -2,29 +2,31 @@
 
 namespace BrainGames\Games\calc;
 
-use function BrainGames\gameEngine\{launchGame, getRoundLimiter};
-use function cli\line;
+use function BrainGames\gameEngine\launchGame;
+
+use const BrainGames\gameEngine\ROUND_LIMIT;
 
 function launchBrainCalcGame()
 {
     $gameInitialMessage = "What is the result of the expression?\n";
-    $roundLimit = getRoundLimiter();
 
-    for ($i = 0; $i < $roundLimit; $i++) {
-        list ($numberOne, $operator, $numberTwo) = setDataForBrainCalcGame();
+    for ($i = 0; $i < ROUND_LIMIT; $i++) {
+        list ($numberOne, $operator, $numberTwo) = getDataForBrainCalcGame();
+        $question = "{$numberOne} {$operator} {$numberTwo}";
+        $correctAnswer = (string) effectCalculations($numberOne, $operator, $numberTwo);
 
-        $questions[$i] = "{$numberOne} {$operator} {$numberTwo}";
-        $correctAnswers[$i] = (string) effectCalculations($numberOne, $operator, $numberTwo);
+        $gameData[$i][0] = $question;
+        $gameData[$i][1] = $correctAnswer;
     }
-    launchGame($gameInitialMessage, $questions, $correctAnswers);
+    launchGame($gameInitialMessage, $gameData);
 }
 
-function setDataForBrainCalcGame()
+function getDataForBrainCalcGame()
 {
-    $operatorsArray = array('+', '-', '*');
+    $operators = array('+', '-', '*');
     $maxNumberLimit = 15;
-    $rndNumberOfOperator = rand(0, count($operatorsArray) - 1);
-    $rndOperator = $operatorsArray[$rndNumberOfOperator];
+    $rndNumberOfOperator = rand(0, count($operators) - 1);
+    $rndOperator = $operators[$rndNumberOfOperator];
     $rndNumberOne = rand(0, $maxNumberLimit);
     $rndNumberTwo = rand(0, $maxNumberLimit);
     return array ($rndNumberOne, $rndOperator, $rndNumberTwo);
