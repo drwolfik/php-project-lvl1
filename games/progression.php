@@ -4,41 +4,40 @@ namespace BrainGames\Games\progression;
 
 use function BrainGames\gameEngine\launchGame;
 
-use const BrainGames\gameEngine\ROUND_LIMIT;
+use const BrainGames\gameEngine\ROUNDS_LIMIT;
+
+const PROGRESSION_SIZE = 10;
 
 function launchBrainProgressionGame()
 {
     $gameInitialMessage = "What number is missing in the progression?\n";
+    $maxIncreaseRate = 20;
 
-    for ($i = 0; $i < ROUND_LIMIT; $i++) {
-        $progression = getArithmeticProgression();
+    for ($i = 0; $i < ROUNDS_LIMIT; $i++) {
+        $firstNumber = rand(0, PROGRESSION_SIZE);
+        $step = rand(1, $maxIncreaseRate);
+        $progression = getArithmeticProgression($firstNumber, $step);
         $hidElementPlace = rand(0, count($progression) - 1);
         $correctAnswer = (string) $progression[$hidElementPlace];
-        $question = getStrWithHidElement($progression, $hidElementPlace);
+        $question = generateQuestion($progression, $hidElementPlace);
         
-        $gameData[$i][0] = $question;
-        $gameData[$i][1] = $correctAnswer;
+        $gameData[$i] = [$question, $correctAnswer];
     }
     launchGame($gameInitialMessage, $gameData);
 }
 
-function getArithmeticProgression()
+function getArithmeticProgression($firstNumber, $step)
 {
-    $progressionSize = 10;
-    $maxIncreaseRate = 10;
-    $firstNumberInProgression = rand(0, $progressionSize);
-    $increaseRate = rand(1, $maxIncreaseRate);
-    $arithmeticProgression[0] = $firstNumberInProgression;
+    $progression[0] = $firstNumber;
 
-    for ($i = 0; $i < $progressionSize - 1; $i++) {
-        $arithmeticProgression[] = $arithmeticProgression[$i]
-        + $increaseRate;
+    for ($i = 1; $i < PROGRESSION_SIZE - 1; $i++) {
+        $progression[] = $firstNumber + $step * $i;
     }
 
-    return $arithmeticProgression;
+    return $progression;
 }
 
-function getStrWithHidElement(array $progression, $hidElementPlace)
+function generateQuestion(array $progression, $hidElementPlace)
 {
     $strWithHiddenElement = "";
 

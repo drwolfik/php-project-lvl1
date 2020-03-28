@@ -5,23 +5,23 @@ namespace BrainGames\gameEngine;
 use function cli\line;
 use function cli\prompt;
 
-const ROUND_LIMIT = 3;
+const ROUNDS_LIMIT = 3;
 
 function launchGame($initialMessage, $gameData)
 {
     showInitialMessage($initialMessage);
-    $playerName = getPlayerName();
-    greetPlayer($playerName);
+    $playerName = prompt('May I have your name? ');
+    line("Hello, %s!\n", $playerName);
     
-    for ($i = 0; $i < ROUND_LIMIT; $i++) {
-            line("Question: %s", $gameData[$i][0]);
-            $playerAnswer = (string) prompt("Your answer");
+    foreach ($gameData as $item) {
+        line("Question: %s", $item[0]);
+        $playerAnswer = (string) prompt("Your answer");
 
-        if ($playerAnswer === $gameData[$i][1]) {
+        if ($playerAnswer === $item[1]) {
             showMessage('correct');
         } else {
-            showMessage('mistake', $playerName, $gameData[$i][1], $playerAnswer);
-            break;
+            showMessage('mistake', $playerName, $item[1], $playerAnswer);
+            exit("Let's try again, {$playerName}!\n");
         }
     }
     showMessage('victory', $playerName);
@@ -33,17 +33,6 @@ function showInitialMessage($gameMessage)
     line($gameMessage);
 }
 
-function greetPlayer(string $playerName)
-{
-    line("Hello, %s!\n", $playerName);
-}
-
-function getPlayerName()
-{
-    $name = prompt('May I have your name? ');
-    return $name;
-}
-
 function showMessage($messageType, $playerName = null, $corrAnswer = null, $playerAnswer = null)
 {
     switch ($messageType) {
@@ -52,7 +41,7 @@ function showMessage($messageType, $playerName = null, $corrAnswer = null, $play
             break;
         case 'mistake':
             line("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.");
-            exit("Let's try again, {$playerName}!\n");
+            break;
         case 'victory':
             line('Congratulations, %s!', $playerName);
             break;
