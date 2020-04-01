@@ -8,24 +8,18 @@ use const BrainGames\gameEngine\ROUNDS_LIMIT;
 
 function launchBrainPrimeGame()
 {
-    $gameInitialMessage = "Answer \"yes\" if given number is prime. "
-    . "Otherwise answer \"no\".\n";
-    
+    $description = "Answer \"yes\" if given number is prime. "
+    . "Otherwise answer \"no\".";
+    $maxNumber = 1000;
+
     for ($i = 0; $i < ROUNDS_LIMIT; $i++) {
-        $numberForBrainPrimeGame = getNumberForBrainPrimeGame();
-        $question = (string) $numberForBrainPrimeGame;
-        $correctAnswer = isPrimeNumber($numberForBrainPrimeGame) ? 'yes' : 'no';
+        $numberForGame = rand(1, $maxNumber);
+        $question = (string) $numberForGame;
+        $correctAnswer = isPrimeNumber($numberForGame) ? 'yes' : 'no';
                 
         $gameData[$i] = [$question, $correctAnswer];
     }
-    launchGame($gameInitialMessage, $gameData);
-}
-
-function getNumberForBrainPrimeGame()
-{
-    $maxNumberLimit = 1000;
-    $number = rand(1, $maxNumberLimit);
-    return $number;
+    launchGame($description, $gameData);
 }
 
 function isPrimeNumber($number)

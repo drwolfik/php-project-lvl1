@@ -7,43 +7,24 @@ use function cli\prompt;
 
 const ROUNDS_LIMIT = 3;
 
-function launchGame($initialMessage, $gameData)
+function launchGame($description, $gameData)
 {
-    showInitialMessage($initialMessage);
+    line('Welcome to the Brain Games!');
+    line("%s\n", $description);
     $playerName = prompt('May I have your name? ');
     line("Hello, %s!\n", $playerName);
     
-    foreach ($gameData as $item) {
-        line("Question: %s", $item[0]);
+    foreach ($gameData as [$question, $answer]) {
+        line("Question: %s", $question);
         $playerAnswer = (string) prompt("Your answer");
 
-        if ($playerAnswer === $item[1]) {
-            showMessage('correct');
+        if ($playerAnswer === $answer) {
+            line("Correct!\n");
         } else {
-            showMessage('mistake', $playerName, $item[1], $playerAnswer);
+            line("{$playerAnswer} is wrong answer ;(."
+                . " Correct answer was {$answer}.");
             exit("Let's try again, {$playerName}!\n");
         }
     }
-    showMessage('victory', $playerName);
-}
-
-function showInitialMessage($gameMessage)
-{
-    line('Welcome to the Brain Games!');
-    line($gameMessage);
-}
-
-function showMessage($messageType, $playerName = null, $corrAnswer = null, $playerAnswer = null)
-{
-    switch ($messageType) {
-        case 'correct':
-            line("Correct!");
-            break;
-        case 'mistake':
-            line("{$playerAnswer} is wrong answer ;(. Correct answer was {$corrAnswer}.");
-            break;
-        case 'victory':
-            line('Congratulations, %s!', $playerName);
-            break;
-    }
+    line('Congratulations, %s!', $playerName);
 }

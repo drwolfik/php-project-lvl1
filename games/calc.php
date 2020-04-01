@@ -8,26 +8,24 @@ use const BrainGames\gameEngine\ROUNDS_LIMIT;
 
 function launchBrainCalcGame()
 {
-    $gameInitialMessage = "What is the result of the expression?\n";
+    $description = "What is the result of the expression?";
 
     for ($i = 0; $i < ROUNDS_LIMIT; $i++) {
-        [$numberOne, $numberTwo, $operator] = getDataForBrainCalcGame();
-        $question = "{$numberOne} {$operator} {$numberTwo}";
-        $correctAnswer = (string) effectCalculations($numberOne, $numberTwo, $operator);
+        $operations = array('+', '-', '*');
+        $maxNumber = 15;
+        $operation = $operations[array_rand($operations, 1)];
+        [$numberOne, $numberTwo] = [rand(0, $maxNumber), rand(0, $maxNumber)];
+        
+        $question = "{$numberOne} {$operation} {$numberTwo}";
+        $correctAnswer = (string) effectCalculations(
+            $numberOne,
+            $numberTwo,
+            $operation
+        );
 
         $gameData[$i] = [$question, $correctAnswer];
     }
-    launchGame($gameInitialMessage, $gameData);
-}
-
-function getDataForBrainCalcGame()
-{
-    $operators = array('+', '-', '*');
-    $maxNumberLimit = 15;
-    $rndOperator = $operators[array_rand($operators, 1)];
-    $rndNumberOne = rand(0, $maxNumberLimit);
-    $rndNumberTwo = rand(0, $maxNumberLimit);
-    return array ($rndNumberOne, $rndNumberTwo, $rndOperator);
+    launchGame($description, $gameData);
 }
 
 function effectCalculations($numberOne, $numberTwo, $operation)

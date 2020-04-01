@@ -8,29 +8,29 @@ use const BrainGames\gameEngine\ROUNDS_LIMIT;
 
 function launchBrainGcdGame()
 {
-    $gameInitialMessage = "Find the greatest common divisor "
-    . "of given numbers.\n";
-    $maxNumberLimit = 1000;
+    $description = "Find the greatest common divisor "
+    . "of given numbers.";
+    $maxNumber = 1000;
 
     for ($i = 0; $i < ROUNDS_LIMIT; $i++) {
-        $numberOne = rand(0, $maxNumberLimit);
-        $numberTwo = rand(0, $maxNumberLimit);
+        [$numberOne, $numberTwo] = [rand(0, $maxNumber), rand(0, $maxNumber)];
         $question = "{$numberOne} {$numberTwo}";
         $correctAnswer = (string) findGCD($numberOne, $numberTwo);
 
         $gameData[$i] = [$question, $correctAnswer];
     }
-    launchGame($gameInitialMessage, $gameData);
+    launchGame($description, $gameData);
 }
 
 function findGCD($firstNumber, $secondNumber)
 {
-    while ($firstNumber != $secondNumber) {
-        if ($firstNumber > $secondNumber) {
-            $firstNumber = $firstNumber - $secondNumber;
+    [$numberOne, $numberTwo] = [$firstNumber, $secondNumber];
+    while ($numberOne != $numberTwo) {
+        if ($numberOne > $numberTwo) {
+            $numberOne = $numberOne - $numberTwo;
         } else {
-            $secondNumber = $secondNumber - $firstNumber;
+            $numberTwo = $numberTwo - $numberOne;
         }
     }
-    return $firstNumber;
+    return $numberOne;
 }
