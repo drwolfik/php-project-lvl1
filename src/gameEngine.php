@@ -10,21 +10,21 @@ const ROUNDS_LIMIT = 3;
 function launchGame($description, $gameData)
 {
     line('Welcome to the Brain Games!');
-    line("%s\n", $description);
+    line("{$description}\n");
     $playerName = prompt('May I have your name? ');
-    line("Hello, %s!\n", $playerName);
+    line("Hello, {$playerName}!\n");
     
     foreach ($gameData as [$question, $answer]) {
-        line("Question: %s", $question);
+        line("Question: {$question}");
         $playerAnswer = (string) prompt("Your answer");
 
         if ($playerAnswer === $answer) {
             line("Correct!\n");
         } else {
-            line("{$playerAnswer} is wrong answer ;(."
-                . " Correct answer was {$answer}.");
-            exit("Let's try again, {$playerName}!\n");
+            line("{$playerAnswer} is wrong answer ;(. Correct answer was {$answer}.");
+            line("Let's try again, {$playerName}!\n");
+            exit;
         }
     }
-    line('Congratulations, %s!', $playerName);
+    line("Congratulations, {$playerName}");
 }

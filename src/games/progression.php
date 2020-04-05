@@ -17,17 +17,25 @@ function launchBrainProgressionGame()
         $firstNumber = rand(0, PROGRESSION_SIZE);
         $step = rand(1, $maxIncreaseRate);
         
-        for ($a = 0; $a < PROGRESSION_SIZE - 1; $a++) {
-            $progression[$a] = $firstNumber + $step * $a;
-        }
+        $progression = generateProgression($firstNumber, $step);
+
         $hiddenElementPlace = array_rand($progression);
-        $correctAnswer = (string) $progression[$hiddenElementPlace];
+        $correctAnswer = $progression[$hiddenElementPlace];
         
         $question = $progression;
         $question[$hiddenElementPlace] = '..';
         $question = implode(' ', $question);
         
-        $gameData[$i] = [$question, $correctAnswer];
+        $gameData[$i] = [$question, (string) $correctAnswer];
     }
     launchGame($description, $gameData);
+}
+
+function generateProgression($firstNumber, $step)
+{
+    for ($i = 0; $i < PROGRESSION_SIZE - 1; $i++) {
+        $progression[$i] = $firstNumber + $step * $i;
+    }
+
+    return $progression;
 }

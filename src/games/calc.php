@@ -17,13 +17,13 @@ function launchBrainCalcGame()
         [$numberOne, $numberTwo] = [rand(0, $maxNumber), rand(0, $maxNumber)];
         
         $question = "{$numberOne} {$operation} {$numberTwo}";
-        $correctAnswer = (string) effectCalculations(
+        $correctAnswer = effectCalculations(
             $numberOne,
             $numberTwo,
             $operation
         );
 
-        $gameData[$i] = [$question, $correctAnswer];
+        $gameData[$i] = [$question, (string) $correctAnswer];
     }
     launchGame($description, $gameData);
 }

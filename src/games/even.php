@@ -8,8 +8,7 @@ use const BrainGames\gameEngine\ROUNDS_LIMIT;
 
 function launchBrainEvenGame()
 {
-    $description = "Answer \"yes\" if the number is even, "
-    . "otherwise answer \"no\".";
+    $description = "Answer 'yes' if the number is even, otherwise answer 'no'.";
     $maxNumber = 50;
 
     for ($i = 0; $i < ROUNDS_LIMIT; $i++) {
